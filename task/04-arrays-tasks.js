@@ -1,10 +1,10 @@
 
 /** *******************************************************************************************
  *                                                                                           *
- * Plese read the following tutorial before implementing tasks:                              *
+ * Please read the following tutorial before implementing tasks:                              *
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array    *
  *                                                                                           *
- * NOTE : Please do not use loops! All tasks can be implmeneted using standard Array methods *
+ * NOTE : Please do not use loops! All tasks can be implemented using standard Array methods *
  *                                                                                           *
  ******************************************************************************************** */
 
@@ -22,8 +22,7 @@
  *    [0, 1, 2, 3, 4, 5], 5    => 5
  */
 export function findElement(arr, value) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  return arr.indexOf(value);
 }
 
 /**
@@ -38,8 +37,8 @@ export function findElement(arr, value) {
  *    5 => [ 1, 3, 5, 7, 9 ]
  */
 export function generateOdds(len) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  let arr = Array.from(new Array(len), (x, i) => i);
+  return arr.map(x => (x + 1) * 2 - 1);
 }
 
 
@@ -56,8 +55,7 @@ export function generateOdds(len) {
  *    [] => []
  */
 export function doubleArray(arr) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  return arr.concat(arr);
 }
 
 
@@ -73,8 +71,7 @@ export function doubleArray(arr) {
  *    [] => []
  */
 export function getArrayOfPositives(arr) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  return arr.filter(num => num > 0);
 }
 
 /**
@@ -89,8 +86,7 @@ export function getArrayOfPositives(arr) {
  *    [ 'cat, 'dog', 'raccon' ] => [ 'cat', 'dog', 'racoon' ]
  */
 export function getArrayOfStrings(arr) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  return arr.filter(word => typeof word === 'string');
 }
 
 /**
@@ -107,12 +103,11 @@ export function getArrayOfStrings(arr) {
  *    [ false, 0, NaN, '', undefined ]   => [ ]
  */
 export function removeFalsyValues(arr) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  return arr.filter(val => val);
 }
 
 /**
- * Returns the array of useprcase strings from the specified array
+ * Returns the array of uppercase strings from the specified array
  *
  * @param {array} arr
  * @return {array}
@@ -123,8 +118,7 @@ export function removeFalsyValues(arr) {
  *    [ 'a', 'b', 'c', 'd', 'e', 'f', 'g' ]  => [ 'A', 'B', 'C', 'D', 'E', 'F', 'G' ]
  */
 export function getUpperCaseStrings(arr) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  return arr.map(val => val.toUpperCase());
 }
 
 
@@ -139,8 +133,7 @@ export function getUpperCaseStrings(arr) {
  *    [ 'angular', 'react', 'ember' ] => [ 7, 5, 5 ]
  */
 export function getStringsLength(arr) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  return arr.map(val => val.length);
 }
 
 /**
@@ -155,8 +148,7 @@ export function getStringsLength(arr) {
  *    [ 1, 'b', 'c'], 0, 'x'  => [ 'x', 1, 'b', 'c' ]
  */
 export function insertItem(arr, item, index) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  return arr.splice(index, 0, item);
 }
 
 /**
@@ -170,8 +162,7 @@ export function insertItem(arr, item, index) {
  *    [ 'a', 'b', 'c', 'd'], 3  => [ 'a', 'b', 'c' ]
  */
 export function getHead(arr, n) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  return arr.slice(0, n);
 }
 
 
@@ -186,13 +177,12 @@ export function getHead(arr, n) {
  *    [ 'a', 'b', 'c', 'd'], 3  => [ 'b', 'c', 'd' ]
  */
 export function getTail(arr, n) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  return arr.reverse().slice(0, n).reverse();
 }
 
 
 /**
- * Returns CSV represebtation of two-dimentional numeric array.
+ * Returns CSV representation of two-dimensional numeric array.
  * https://en.wikipedia.org/wiki/Comma-separated_values
  *
  * @param {array} arr
@@ -212,8 +202,8 @@ export function getTail(arr, n) {
  *    +'30,31,32,33,34'
  */
 export function toCsvText(arr) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  let newArr = arr.map(x => x + '\n');
+  return newArr.join('').slice(0, -1);
 }
 
 /**
@@ -228,8 +218,7 @@ export function toCsvText(arr) {
  *   [ 10, 100, -1 ]      => [ 100, 10000, 1 ]
  */
 export function toArrayOfSquares(arr) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  return arr.map(x => x * x);
 }
 
 
@@ -248,8 +237,12 @@ export function toArrayOfSquares(arr) {
  *   [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] => [ 1, 3, 6, 10, 15, 21, 28, 36, 45, 55 ]
  */
 export function getMovingSum(arr) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  let counter = 1;
+  return arr.map(x => {
+    let newArr = arr.slice(0, counter);
+    counter++;
+    return newArr.reduce((a, c) => a + c);
+  });
 }
 
 /**
@@ -264,8 +257,7 @@ export function getMovingSum(arr) {
  * [ "a" ] => []
  */
 export function getSecondItems(arr) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  return arr.filter(x => arr.indexOf(x) % 2 !== 0);
 }
 
 
@@ -284,8 +276,16 @@ export function getSecondItems(arr) {
  *  [ 1,2,3,4,5 ] => [ 1, 2,2, 3,3,3, 4,4,4,4, 5,5,5,5,5 ]
  */
 export function propagateItemsByPositionIndex(arr) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  let curArr = arr.map(x => {
+    let newArr = new Array(arr.indexOf(x) + 1).fill(x);
+    return newArr;
+  });
+  if(curArr.length !== 0) {
+    return curArr.reduce((a, b) => a.concat(b));
+  }
+  else {
+    return curArr;
+  }
 }
 
 
@@ -557,7 +557,7 @@ export function selectMany(arr, childrenSelector) {
 
 
 /**
- * Returns an element from the multidimentional array by the specified indexes.
+ * Returns an element from the multidimensional array by the specified indexes.
  *
  * @param {array} arr
  * @param {array} indexes
