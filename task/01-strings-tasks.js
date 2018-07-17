@@ -227,6 +227,7 @@ export function getRectangleString(width, height) {
 export function encodeToRot13(str) {
   // const string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
   // const stringROT = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm';
+  // const newString = '';
   // for(let i = 0; i < str.length; i++) {
   //   if(string.indexOf(str[i]) !== -1) {
   //     let char = string.indexOf(str[i]);
@@ -236,19 +237,14 @@ export function encodeToRot13(str) {
   //   }
   // }
   // return newString;
-  let newString = [];
-  var reg = new RegExp(/^[a-z]+$/i);
-  for(let i = 0; i < str.length; i++){
-    if((str.charCodeAt(i) >= 65 && str.charCodeAt(i) <= 77) || (str.charCodeAt(i) >= 97 && str.charCodeAt(i) <= 109)) {
-      newString.push(str[i].replace(reg, String.fromCharCode(str.charCodeAt(i) + 13)));
-    } else if((str.charCodeAt(i) >= 78 && str.charCodeAt(i) <= 90) || (str.charCodeAt(i) >= 110 && str.charCodeAt(i) <= 122)){
-      newString.push(str[i].replace(reg, String.fromCharCode(str.charCodeAt(i) - 13)));
-    }
-    else {
-      newString.push(str[i]);
-    }
-  }
-  return newString.join('');
+  const maxLowerCaseCode = 122;
+  const maxUpperCaseCode = 90;
+  return str.replace(/[a-zA-Z]/g, c => {
+    let code = c.charCodeAt(0) + 13;
+    let edge = (c <= 'Z') ? maxUpperCaseCode : maxLowerCaseCode;
+    if (code > edge) code -= 26;
+    return String.fromCharCode(code);
+  }); 
 }
 
 /**
