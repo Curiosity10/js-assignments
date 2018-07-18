@@ -501,8 +501,7 @@ export function getIntervalArray(start, end) {
  *   [ 1, 1, 2, 2, 3, 3, 4, 4] => [ 1, 2, 3, 4]
  */
 export function distinct(arr) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  return Array.from(new Set(arr));
 }
 
 /**
