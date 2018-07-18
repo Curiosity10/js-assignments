@@ -56,14 +56,18 @@ export function parseDataFromIso8601(value) {
  */
 export function isLeapYear(date) {
   let year = date.getFullYear();
-  if(year % 100 === 0 && year % 400 !== 0){
-    return false;
-  }
-  if(year % 4 === 0 ){
-    return true;
-  } else {
-    return false;
-  }
+  return year % 400 === 0
+         || year % 4 === 0
+         && year % 100 !== 0;
+
+  // if(year % 100 === 0 && year % 400 !== 0){
+  //   return false;
+  // }
+  // if(year % 4 === 0 ){
+  //   return true;
+  // } else {
+  //   return false;
+  // }
 }
 
 
@@ -83,12 +87,14 @@ export function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 export function timeSpanToString(startDate, endDate) {
-  var res = new Date();
-  res.setHours(endDate.getHours() - startDate.getHours());
-  res.setMinutes(endDate.getMinutes() - startDate.getMinutes());
-  res.setSeconds(endDate.getSeconds() - startDate.getSeconds());
-  res.setMilliseconds(endDate.getMilliseconds() - startDate.getMilliseconds());
-  return res.toLocaleTimeString() + ((res.getMilliseconds() / 1000).toFixed(3)).slice(1);
+  // var res = new Date();
+  // res.setHours(endDate.getHours() - startDate.getHours());
+  // res.setMinutes(endDate.getMinutes() - startDate.getMinutes());
+  // res.setSeconds(endDate.getSeconds() - startDate.getSeconds());
+  // res.setMilliseconds(endDate.getMilliseconds() - startDate.getMilliseconds());
+  // return res.toLocaleTimeString() + ((res.getMilliseconds() / 1000).toFixed(3)).slice(1);
+  let difference = endDate - startDate;
+  return new Date(difference).toISOString().slice(11, 23);
 }
 
 

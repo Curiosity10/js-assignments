@@ -37,8 +37,7 @@ export function findElement(arr, value) {
  *    5 => [ 1, 3, 5, 7, 9 ]
  */
 export function generateOdds(len) {
-  let arr = Array.from(new Array(len), (x, i) => i);
-  return arr.map(x => (x + 1) * 2 - 1);
+  return new Array(len).fill(1).map((num, i) => 2 * num * i + 1);
 }
 
 
@@ -177,7 +176,7 @@ export function getHead(arr, n) {
  *    [ 'a', 'b', 'c', 'd'], 3  => [ 'b', 'c', 'd' ]
  */
 export function getTail(arr, n) {
-  return arr.reverse().slice(0, n).reverse();
+  return arr.slice(arr.length - n, arr.length + 1);
 }
 
 
@@ -202,8 +201,7 @@ export function getTail(arr, n) {
  *    +'30,31,32,33,34'
  */
 export function toCsvText(arr) {
-  let newArr = arr.map(x => x + '\n');
-  return newArr.join('').slice(0, -1);
+  return arr.map(x => x + '\n').join('').slice(0, -1);
 }
 
 /**
@@ -303,8 +301,7 @@ export function propagateItemsByPositionIndex(arr) {
  *   [ 10, 10, 10, 10 ] => [ 10, 10, 10 ]
  */
 export function get3TopItems(arr) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  return arr.sort((a, b) => b - a).slice(0, 3);
 }
 
 
@@ -322,8 +319,7 @@ export function get3TopItems(arr) {
  *   [ 1, '2' ] => 1
  */
 export function getPositivesCount(arr) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  return arr.filter(val => val > 0 && typeof val === 'number').length;
 }
 
 /**
@@ -340,8 +336,19 @@ export function getPositivesCount(arr) {
  *   [ 'one','one','one','zero' ]     => [ 'zero','one','one','one' ]
  */
 export function sortDigitNamesByNumericOrder(arr) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  const numbers = [
+    'zero',
+    'one',
+    'two',
+    'three',
+    'four',
+    'five', 
+    'six', 
+    'seven', 
+    'eight', 
+    'nine'
+  ];
+  return arr.sort((a, b) => numbers.indexOf(a) - numbers.indexOf(b));
 }
 
 /**
@@ -357,8 +364,7 @@ export function sortDigitNamesByNumericOrder(arr) {
  *   [ 1, 10, 100, 1000 ]  => 1111
  */
 export function getItemsSum(arr) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  return arr.reduce((acc, cur) => acc + cur, 0);
 }
 
 /**
@@ -374,8 +380,7 @@ export function getItemsSum(arr) {
  *  [ null, undefined, NaN, false, 0, '' ]  => 6
  */
 export function getFalsyValuesCount(arr) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  return arr.filter(val => !val).length;
 }
 
 /**
@@ -393,8 +398,7 @@ export function getFalsyValuesCount(arr) {
  *    [ true, 0, 1, 'true' ], true => 1
  */
 export function findAllOccurences(arr, item) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  return arr.filter(a => a === item ).length;
 }
 
 /**
@@ -409,8 +413,7 @@ export function findAllOccurences(arr, item) {
  *    ['rock', 'paper', 'scissors']     => 'rock,paper,scissors'
  */
 export function toStringList(arr) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  return arr.join(',');
 }
 
 
@@ -438,6 +441,7 @@ export function toStringList(arr) {
  *      { country: 'Poland',  city: 'Warsaw' },
  *      { country: 'Russia',  city: 'Moscow' },
  *      { country: 'Russia',  city: 'Saint Petersburg' }
+ *    ]
  */
 export function sortCitiesArray(arr) {
   /* implement your code here */
