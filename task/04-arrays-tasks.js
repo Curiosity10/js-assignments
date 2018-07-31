@@ -444,8 +444,7 @@ export function toStringList(arr) {
  *    ]
  */
 export function sortCitiesArray(arr) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  return arr.sort((a, b) => a.country.localeCompare(b.country) || a.city.localeCompare(b.city));
 }
 
 /**
@@ -467,8 +466,8 @@ export function sortCitiesArray(arr) {
  *           [0,0,0,0,1]]
  */
 export function getIdentityMatrix(n) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  let array = Array.from({length: n}, () => []);
+  return array.map((el, i) => Array.from({length: n}, (val, key) => key === i ? 1 : 0));
 }
 
 /**
@@ -485,8 +484,7 @@ export function getIdentityMatrix(n) {
  *     3, 3   => [ 3 ]
  */
 export function getIntervalArray(start, end) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  return Array.from({length: end - start + 1}, (el, i) => start + i);
 }
 
 /**
@@ -535,8 +533,14 @@ export function distinct(arr) {
  *   }
  */
 export function group(array, keySelector, valueSelector) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  return array.reduce((prev, curr) => {
+    let key = keySelector(curr),
+      value = valueSelector(curr);
+    let arr = prev.get(key) || [];
+    arr.push(value);
+    prev.set(key, arr);
+    return prev;
+  }, new Map);
 }
 
 
@@ -554,8 +558,7 @@ export function group(array, keySelector, valueSelector) {
  *   ['one','two','three'], x=>x.split('')  =>   ['o','n','e','t','w','o','t','h','r','e','e']
  */
 export function selectMany(arr, childrenSelector) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  return arr.reduce((prev, curr) => prev.concat(childrenSelector(curr)), []);
 }
 
 
@@ -572,8 +575,15 @@ export function selectMany(arr, childrenSelector) {
  *   [[[ 1, 2, 3]]], [ 0, 0, 1 ]      => 2        (arr[0][0][1])
  */
 export function getElementByIndexes(arr, indexes) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  return indexes.reduce((prev, curr, index) => {
+    if(index !== indexes.length - 1){
+      arr = arr[curr];
+    }
+    else{
+      return arr[curr];
+    }
+     
+  }, []);
 }
 
 
@@ -596,8 +606,14 @@ export function getElementByIndexes(arr, indexes) {
  *
  */
 export function swapHeadAndTail(arr) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  const mid = arr.length / 2;
+  if(arr.length % 2 === 0){
+    return arr.slice(mid, arr.length).concat(arr.slice(0, mid));
+  } else {
+    return arr.slice(Math.ceil(mid), arr.length)
+      .concat(arr[Math.floor(mid)])
+      .concat(arr.slice(0, Math.floor(mid)));
+  }
 }
 
 const tasks = {
