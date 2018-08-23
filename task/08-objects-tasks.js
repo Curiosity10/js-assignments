@@ -22,9 +22,14 @@
  *    console.log(r.getArea());   // => 200
  */
 export function Rectangle(width, height) {
-  return new Object({width: width, height: height, getArea:() => width * height});
+  this.width = width;
+  this.height = height;
 }
-
+Rectangle.prototype = {
+  getArea: function () {
+    return this.width * this.height;
+  }
+};
 
 /**
  * Returns the JSON representation of specified object
@@ -53,8 +58,7 @@ export function getJSON(obj) {
  *
  */
 export function fromJSON(proto, json) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  return Object.assign(Object.create(proto), JSON.parse(json));
 }
 
 
