@@ -1,4 +1,3 @@
-
 /** ************************************************************************************************
  *                                                                                                *
  * Plese read the following tutorial before implementing tasks:                                   *
@@ -6,7 +5,6 @@
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object        *
  *                                                                                                *
  ************************************************************************************************ */
-
 
 /**
  * Returns the rectagle object with width and height parameters and getArea() method
@@ -26,7 +24,7 @@ export function Rectangle(width, height) {
   this.height = height;
 }
 Rectangle.prototype = {
-  getArea: function () {
+  getArea: function() {
     return this.width * this.height;
   }
 };
@@ -45,7 +43,6 @@ export function getJSON(obj) {
   return JSON.stringify(obj);
 }
 
-
 /**
  * Returns the object of specified type from JSON representation
  *
@@ -60,7 +57,6 @@ export function getJSON(obj) {
 export function fromJSON(proto, json) {
   return Object.assign(Object.create(proto), JSON.parse(json));
 }
-
 
 /**
  * Css selectors builder

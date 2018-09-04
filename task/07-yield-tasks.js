@@ -1,4 +1,3 @@
-
 /** ******************************************************************************************
  *                                                                                          *
  * Plese read the following tutorial before implementing tasks:                             *
@@ -6,7 +5,6 @@
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/yield        *
  *                                                                                          *
  ****************************************************************************************** */
-
 
 /**
  * Returns the lines sequence of "99 Bottles of Beer" song:
@@ -32,28 +30,17 @@
  *
  */
 export function* get99BottlesOfBeer() {
-  let bottles = 99;
-  while(true) {
-    if (bottles === 0) {
-      break;
-    }
-    if(bottles === 2){
-      yield `${bottles} bottles of beer on the wall, ${bottles} bottles of beer.`;
-      yield `Take one down and pass it around, ${--bottles} bottle of beer on the wall.`;
-    }
-    if(bottles === 1) {
-      yield `${bottles} bottle of beer on the wall, ${bottles} bottle of beer.`;
-      yield `Take one down and pass it around, no more bottles of beer on the wall.`;
-      yield `No more bottles of beer on the wall, no more bottles of beer.`;
-      yield `Go to the store and buy some more, 99 bottles of beer on the wall.`;
-      --bottles;
-    } else {
-      yield `${bottles} bottles of beer on the wall, ${bottles} bottles of beer.`;
-      yield `Take one down and pass it around, ${--bottles} bottles of beer on the wall.`;
-    }
+  for (let i = 99; i > 1; i--) {
+    yield `${i} bottles of beer on the wall, ${i} bottles of beer.`;
+    yield `Take one down and pass it around, ${i - 1} bottle${
+      i > 2 ? 's' : ''
+    } of beer on the wall.`;
   }
+  yield '1 bottle of beer on the wall, 1 bottle of beer.';
+  yield 'Take one down and pass it around, no more bottles of beer on the wall.';
+  yield 'No more bottles of beer on the wall, no more bottles of beer.';
+  yield 'Go to the store and buy some more, 99 bottles of beer on the wall.';
 }
-
 
 /**
  * Returns the Fibonacci sequence:
@@ -67,14 +54,13 @@ export function* get99BottlesOfBeer() {
 export function* getFibonacciSequence() {
   let firstNum = 0;
   let secondNum = 1;
-  while(true) {
+  while (true) {
     let current = firstNum;
     firstNum = secondNum;
     secondNum = firstNum + current;
     yield current;
   }
 }
-
 
 /**
  * Traverses a tree using the depth-first strategy
@@ -108,17 +94,16 @@ export function* getFibonacciSequence() {
  */
 export function* depthTraversalTree(root) {
   const stack = [root];
-  while(stack.length) {
+  while (stack.length) {
     const node = stack.pop();
     yield node;
-    if(node.children) {
+    if (node.children) {
       node.children.reverse().forEach(child => {
         stack.push(child);
       });
     }
   }
 }
-
 
 /**
  * Traverses a tree using the breadth-first strategy
@@ -143,16 +128,15 @@ export function* depthTraversalTree(root) {
  */
 export function* breadthTraversalTree(root) {
   const queue = [root];
-  for(let node of queue) {
+  for (let node of queue) {
     yield node;
-    if(node.children) {
+    if (node.children) {
       node.children.forEach(child => {
         queue.push(child);
       });
     }
   }
 }
-
 
 /**
  * Merges two yield-style sorted sequences into the one sorted sequence.
@@ -168,18 +152,17 @@ export function* breadthTraversalTree(root) {
  *   [ 1, 3, 5, ... ], [ -1 ] => [ -1, 1, 3, 5, ...]
  */
 export function* mergeSortedSequences(source1, source2) {
-  const first = source1();
-  const second = source2();
-  while(true) {
-    const a = first.next().value;
-    const b = second.next().value;
-    if(a === undefined) {
-      yield b;
-    } else if(b === undefined) {
-      yield a;
-    } else {
-      yield Math.min(a, b);
-      yield Math.max(a, b);
+  let first = source1();
+  let second = source2();
+  let value1 = first.next();
+  let value2 = second.next();
+  while (!value1.done || !value2.done) {
+    if (value1.value > value2.value || value1.done) {
+      yield value2.value;
+      value2 = second.next();
+    } else if (value1.value < value2.value || value2.done) {
+      yield value1.value;
+      value1 = first.next();
     }
   }
 }
