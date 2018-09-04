@@ -1,4 +1,3 @@
-
 /** *******************************************************************************************
  *                                                                                           *
  * Please read the following tutorial before implementing tasks:                              *
@@ -7,7 +6,6 @@
  * NOTE : Please do not use loops! All tasks can be implemented using standard Array methods *
  *                                                                                           *
  ******************************************************************************************** */
-
 
 /**
  * Returns an index of the specified element in array or -1 if element is not found
@@ -37,9 +35,8 @@ export function findElement(arr, value) {
  *    5 => [ 1, 3, 5, 7, 9 ]
  */
 export function generateOdds(len) {
-  return new Array(len).fill(1).map((num, i) => 2 * num * i + 1);
+  return Array.from({ length: len }, (num, i) => i * 2 + 1);
 }
-
 
 /**
  * Returns the doubled array - elements of the specified array are repeated twice
@@ -56,7 +53,6 @@ export function generateOdds(len) {
 export function doubleArray(arr) {
   return arr.concat(arr);
 }
-
 
 /**
  * Returns an array of positive numbers from the specified array in original order
@@ -120,7 +116,6 @@ export function getUpperCaseStrings(arr) {
   return arr.map(val => val.toUpperCase());
 }
 
-
 /**
  * Returns the array of string lengths from the specified string array.
  *
@@ -164,7 +159,6 @@ export function getHead(arr, n) {
   return arr.slice(0, n);
 }
 
-
 /**
  * Returns the n last items of the specified array
  *
@@ -176,9 +170,8 @@ export function getHead(arr, n) {
  *    [ 'a', 'b', 'c', 'd'], 3  => [ 'b', 'c', 'd' ]
  */
 export function getTail(arr, n) {
-  return arr.slice(arr.length - n, arr.length + 1);
+  return arr.slice(-n);
 }
-
 
 /**
  * Returns CSV representation of two-dimensional numeric array.
@@ -201,7 +194,10 @@ export function getTail(arr, n) {
  *    +'30,31,32,33,34'
  */
 export function toCsvText(arr) {
-  return arr.map(x => x + '\n').join('').slice(0, -1);
+  return arr
+    .map(x => x + '\n')
+    .join('')
+    .slice(0, -1);
 }
 
 /**
@@ -219,7 +215,6 @@ export function toArrayOfSquares(arr) {
   return arr.map(x => x * x);
 }
 
-
 /**
  * Transforms the numeric array to the according moving sum array:
  *     f[n] = x[0] + x[1] + x[2] +...+ x[n]
@@ -235,12 +230,8 @@ export function toArrayOfSquares(arr) {
  *   [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] => [ 1, 3, 6, 10, 15, 21, 28, 36, 45, 55 ]
  */
 export function getMovingSum(arr) {
-  let counter = 1;
-  return arr.map(x => {
-    let newArr = arr.slice(0, counter);
-    counter++;
-    return newArr.reduce((a, c) => a + c);
-  });
+  let sum = 0;
+  return arr.map(x => (sum += x));
 }
 
 /**
@@ -258,7 +249,6 @@ export function getSecondItems(arr) {
   return arr.filter(x => arr.indexOf(x) % 2 !== 0);
 }
 
-
 /**
  * Propagates every item in sequence its position times
  * Returns an array that consists of: one first item, two second items, tree third items etc.
@@ -274,18 +264,8 @@ export function getSecondItems(arr) {
  *  [ 1,2,3,4,5 ] => [ 1, 2,2, 3,3,3, 4,4,4,4, 5,5,5,5,5 ]
  */
 export function propagateItemsByPositionIndex(arr) {
-  let curArr = arr.map(x => {
-    let newArr = new Array(arr.indexOf(x) + 1).fill(x);
-    return newArr;
-  });
-  if(curArr.length !== 0) {
-    return curArr.reduce((a, b) => a.concat(b));
-  }
-  else {
-    return curArr;
-  }
+  return arr.reduce((a, x, i) => a.concat(new Array(i + 1).fill(x)), []);
 }
-
 
 /**
  * Returns the 3 largest numbers from the specified array
@@ -303,7 +283,6 @@ export function propagateItemsByPositionIndex(arr) {
 export function get3TopItems(arr) {
   return arr.sort((a, b) => b - a).slice(0, 3);
 }
-
 
 /**
  * Returns the number of positive numbers from specified array
@@ -336,19 +315,19 @@ export function getPositivesCount(arr) {
  *   [ 'one','one','one','zero' ]     => [ 'zero','one','one','one' ]
  */
 export function sortDigitNamesByNumericOrder(arr) {
-  const numbers = [
-    'zero',
-    'one',
-    'two',
-    'three',
-    'four',
-    'five', 
-    'six', 
-    'seven', 
-    'eight', 
-    'nine'
-  ];
-  return arr.sort((a, b) => numbers.indexOf(a) - numbers.indexOf(b));
+  const digits = {
+    zero: 0,
+    one: 1,
+    two: 2,
+    three: 3,
+    four: 4,
+    five: 5,
+    six: 6,
+    seven: 7,
+    eight: 8,
+    nine: 9
+  };
+  return arr.sort((a, b) => digits[a] - digits[b]);
 }
 
 /**
@@ -380,7 +359,7 @@ export function getItemsSum(arr) {
  *  [ null, undefined, NaN, false, 0, '' ]  => 6
  */
 export function getFalsyValuesCount(arr) {
-  return arr.filter(val => !val).length;
+  return arr.reduce((a, x) => (x ? a : a + 1), 0);
 }
 
 /**
@@ -398,7 +377,7 @@ export function getFalsyValuesCount(arr) {
  *    [ true, 0, 1, 'true' ], true => 1
  */
 export function findAllOccurences(arr, item) {
-  return arr.filter(a => a === item ).length;
+  return arr.reduce((a, x) => (x === item) + a, 0);
 }
 
 /**
@@ -413,9 +392,8 @@ export function findAllOccurences(arr, item) {
  *    ['rock', 'paper', 'scissors']     => 'rock,paper,scissors'
  */
 export function toStringList(arr) {
-  return arr.join(',');
+  return arr.toString();
 }
-
 
 /**
  * Sorts the specified array by country name first and city name (if countries are
@@ -444,7 +422,9 @@ export function toStringList(arr) {
  *    ]
  */
 export function sortCitiesArray(arr) {
-  return arr.sort((a, b) => a.country.localeCompare(b.country) || a.city.localeCompare(b.city));
+  return arr.sort(
+    (a, b) => a.country.localeCompare(b.country) || a.city.localeCompare(b.city)
+  );
 }
 
 /**
@@ -466,8 +446,10 @@ export function sortCitiesArray(arr) {
  *           [0,0,0,0,1]]
  */
 export function getIdentityMatrix(n) {
-  let array = Array.from({length: n}, () => []);
-  return array.map((el, i) => Array.from({length: n}, (val, key) => key === i ? 1 : 0));
+  let array = Array.from({ length: n }, () => []);
+  return array.map((el, i) =>
+    Array.from({ length: n }, (val, key) => (key === i ? 1 : 0))
+  );
 }
 
 /**
@@ -484,7 +466,7 @@ export function getIdentityMatrix(n) {
  *     3, 3   => [ 3 ]
  */
 export function getIntervalArray(start, end) {
-  return Array.from({length: end - start + 1}, (el, i) => start + i);
+  return Array.from({ length: end - start + 1 }, (el, i) => start + i);
 }
 
 /**
@@ -540,9 +522,8 @@ export function group(array, keySelector, valueSelector) {
     arr.push(value);
     prev.set(key, arr);
     return prev;
-  }, new Map);
+  }, new Map());
 }
-
 
 /**
  * Projects each element of the specified array to a sequence and flattens the
@@ -561,7 +542,6 @@ export function selectMany(arr, childrenSelector) {
   return arr.reduce((prev, curr) => prev.concat(childrenSelector(curr)), []);
 }
 
-
 /**
  * Returns an element from the multidimensional array by the specified indexes.
  *
@@ -576,16 +556,13 @@ export function selectMany(arr, childrenSelector) {
  */
 export function getElementByIndexes(arr, indexes) {
   return indexes.reduce((prev, curr, index) => {
-    if(index !== indexes.length - 1){
+    if (index !== indexes.length - 1) {
       arr = arr[curr];
-    }
-    else{
+    } else {
       return arr[curr];
     }
-     
   }, []);
 }
-
 
 /**
  * Swaps the head and tail of the specified array:
@@ -607,10 +584,11 @@ export function getElementByIndexes(arr, indexes) {
  */
 export function swapHeadAndTail(arr) {
   const mid = arr.length / 2;
-  if(arr.length % 2 === 0){
+  if (arr.length % 2 === 0) {
     return arr.slice(mid, arr.length).concat(arr.slice(0, mid));
   } else {
-    return arr.slice(Math.ceil(mid), arr.length)
+    return arr
+      .slice(Math.ceil(mid), arr.length)
       .concat(arr[Math.floor(mid)])
       .concat(arr.slice(0, Math.floor(mid)));
   }

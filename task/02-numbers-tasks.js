@@ -1,4 +1,3 @@
-
 /** ******************************************************************************************
  *                                                                                          *
  * Plese read the following tutorial before implementing tasks:                             *
@@ -7,7 +6,6 @@
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math    *
  *                                                                                          *
  ******************************************************************************************* */
-
 
 /**
  * Returns an area of a rectangle given by width and heigth.
@@ -23,7 +21,6 @@
 export function getRectangleArea(width, height) {
   return width * height;
 }
-
 
 /**
  * Returns a circumference of circle given by radius.
@@ -53,7 +50,7 @@ export function getCicleCircumference(radius) {
  *  -3, 3  => 0
  */
 export function getAverage(value1, value2) {
-  return value1 / 2 + value2 / 2 ;
+  return value1 / 2 + value2 / 2;
 }
 
 /**
@@ -72,7 +69,7 @@ export function getAverage(value1, value2) {
  *   (-5,0) (10,-10) => 18.027756377319946
  */
 export function getDistanceBetweenPoints(x1, y1, x2, y2) {
-  return Math.hypot((x2-x1), (y2-y1));
+  return Math.hypot(x2 - x1, y2 - y1);
 }
 
 /**
@@ -90,7 +87,6 @@ export function getDistanceBetweenPoints(x1, y1, x2, y2) {
 export function getLinearEquationRoot(a, b) {
   return -b / a;
 }
-
 
 /**
  * Returns an angle (in radians) between two vectors given by xi and yi, coordinates
@@ -111,7 +107,7 @@ export function getLinearEquationRoot(a, b) {
  *   (0,1) (1,2)     => 0
  */
 export function getAngleBetweenVectors(x1, y1, x2, y2) {
-  return Math.abs(Math.atan2(y1, x1) -  Math.atan2(y2, x2));
+  return Math.abs(Math.atan2(y1, x1) - Math.atan2(y2, x2));
 }
 
 /**
@@ -129,7 +125,6 @@ export function getAngleBetweenVectors(x1, y1, x2, y2) {
 export function getLastDigit(value) {
   return value % 10;
 }
-
 
 /**
  * Returns a number by given string representation.
@@ -182,7 +177,7 @@ export function getParallelipidedDiagonal(a, b, c) {
  */
 export function roundToPowerOfTen(num, pow) {
   const power = Math.pow(10, pow);
-  return Math.round((num / power)) * power;
+  return Math.round(num / power) * power;
 }
 
 /**
@@ -203,8 +198,8 @@ export function roundToPowerOfTen(num, pow) {
  *   17 => true
  */
 export function isPrime(n) {
-  for(let i = 2; i < n-1; i++){
-    if(n % i === 0){
+  for (let i = 2; i < n - 1; i++) {
+    if (n % i === 0) {
       return false;
     }
   }

@@ -1,11 +1,9 @@
-
 /** *****************************************************************************************
  *                                                                                          *
  * Please read the following tutorial before implementing tasks:                             *
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String  *
  *                                                                                          *
  ********************************************************************************************/
-
 
 /**
  * Returns the result of concatenation of two strings.
@@ -65,10 +63,9 @@ export function getStringFromTemplate(firstName, lastName) {
  *   'Hello, John Doe!' => 'John Doe'
  *   'Hello, Chuck Norris!' => 'Chuck Norris'
  */
-export function  extractNameFromTemplate(value) {
+export function extractNameFromTemplate(value) {
   return value.slice(7, -1);
 }
-
 
 /**
  * Returns a first char of the given string.
@@ -126,7 +123,7 @@ export function repeatString(value, count) {
  *   'I like legends', 'end' => 'I like legs',
  *   'ABABAB','BA' => 'ABAB'
  */
-export function removeFirstOccurrences(str, value)  {
+export function removeFirstOccurrences(str, value) {
   return str.replace(value, '');
 }
 
@@ -145,7 +142,6 @@ export function unbracketTag(str) {
   //return str.slice(1, -1);
   return str.replace(/[^\w]/g, '');
 }
-
 
 /**
  * Converts all characters of the specified string into the upper case
@@ -207,7 +203,6 @@ export function getRectangleString(width, height) {
   return top + side.repeat(height - 2) + bot;
 }
 
-
 /**
  * Encode specified string with ROT13 cipher
  * See details:  https://en.wikipedia.org/wiki/ROT13
@@ -225,26 +220,14 @@ export function getRectangleString(width, height) {
  *
  */
 export function encodeToRot13(str) {
-  // const string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-  // const stringROT = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm';
-  // const newString = '';
-  // for(let i = 0; i < str.length; i++) {
-  //   if(string.indexOf(str[i]) !== -1) {
-  //     let char = string.indexOf(str[i]);
-  //     newString += stringROT[char];
-  //   } else {
-  //     newString += str[i];
-  //   }
-  // }
-  // return newString;
   const maxLowerCaseCode = 122;
   const maxUpperCaseCode = 90;
   return str.replace(/[a-zA-Z]/g, c => {
     let code = c.charCodeAt(0) + 13;
-    let edge = (c <= 'Z') ? maxUpperCaseCode : maxLowerCaseCode;
+    let edge = c <= 'Z' ? maxUpperCaseCode : maxLowerCaseCode;
     if (code > edge) code -= 26;
     return String.fromCharCode(code);
-  }); 
+  });
 }
 
 /**
@@ -261,9 +244,8 @@ export function encodeToRot13(str) {
  *   isString(new String('test')) => true
  */
 export function isString(value) {
-  return (typeof value === 'string' || value instanceof String);
+  return typeof value === 'string' || value instanceof String;
 }
-
 
 /**
  * Returns playid card id.
@@ -290,9 +272,11 @@ export function isString(value) {
  *   'K♠' => 51
  */
 export function getCardId(value) {
-  const cards = ['A♣', '2♣', '3♣', '4♣', '5♣', '6♣', '7♣', '8♣', '9♣', '10♣', 'J♣', 'Q♣', 'K♣',
-    'A♦', '2♦', '3♦', '4♦', '5♦', '6♦', '7♦', '8♦', '9♦', '10♦', 'J♦', 'Q♦', 'K♦',
-    'A♥', '2♥', '3♥', '4♥', '5♥', '6♥', '7♥', '8♥', '9♥', '10♥', 'J♥', 'Q♥', 'K♥',
-    'A♠', '2♠', '3♠', '4♠', '5♠', '6♠', '7♠', '8♠', '9♠', '10♠', 'J♠', 'Q♠', 'K♠'];
-  return cards.indexOf(value);
+  const cardValue = 0;
+  const cardsValues = 'A234567891JQK';
+  const suits = '♣♦♥♠';
+  return (
+    suits.indexOf(value[value.length - 1]) * 13 +
+    cardsValues.indexOf(value[cardValue])
+  );
 }

@@ -1,4 +1,3 @@
-
 /** ************************************************************************************************
  *                                                                                                *
  * Plese read the following tutorial before implementing tasks:                                   *
@@ -6,7 +5,6 @@
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Loops_and_iteration              *
  *                                                                                                *
  ************************************************************************************************ */
-
 
 /**
  * Returns the 'Fizz','Buzz' or an original number using the following rules:
@@ -29,19 +27,11 @@
  *
  */
 export function getFizzBuzz(num) {
-  let answer = ''; 
-  if(num % 3 !== 0 && num % 5 !== 0){
-    return num;
-  }
-  if(num % 3 === 0) {
-    answer = 'Fizz'; 
-  }
-  if(num % 5 === 0) {
-    answer += 'Buzz';
-  } 
-  return answer;
+  let res = '';
+  if (num % 3 === 0) res += 'Fizz';
+  if (num % 5 === 0) res += 'Buzz';
+  return res || num;
 }
-
 
 /**
  * Returns the factorial of the specified integer n.
@@ -55,13 +45,12 @@ export function getFizzBuzz(num) {
  *   10 => 3628800
  */
 export function getFactorial(n) {
-  let answer = 1;
-  for(let i = 1; i <= n; i++){
-    answer *= i;
+  let factorial = 1;
+  for (let i = 1; i <= n; i++) {
+    factorial *= i;
   }
-  return answer;
+  return factorial;
 }
-
 
 /**
  * Returns the sum of integer numbers between n1 and n2 (inclusive).
@@ -77,15 +66,14 @@ export function getFactorial(n) {
  */
 export function getSumBetweenNumbers(n1, n2) {
   let sum = 0;
-  for(sum;n1 <= n2;n1++){
+  for (sum; n1 <= n2; n1++) {
     sum += n1;
   }
   return sum;
 }
 
-
 /**
- * Returns true, if a triangle can be built with the specified sides a,b,c and false 
+ * Returns true, if a triangle can be built with the specified sides a,b,c and false
  * in any other ways.
  *
  * @param {number} a
@@ -104,7 +92,6 @@ export function isTriangle(a, b, c) {
   let sum = a + b + c - max;
   return max < sum;
 }
-
 
 /**
  * Returns true, if two specified axis-aligned rectangles overlap, otherwise false.
@@ -139,18 +126,16 @@ export function isTriangle(a, b, c) {
  *
  */
 export function doRectanglesOverlap(rect1, rect2) {
-  if(rect1.left > rect2.left + rect2.width 
-    || rect1.left + rect1.width < rect2.left){
-    return false;
-  } else if(rect1.top > rect2.top + rect2.height 
-    || rect1.top + rect1.height < rect2.top){
-    return false;
+  if (rect1.top > rect2.top) {
+    let tmp = rect1;
+    rect1 = rect2;
+    rect2 = tmp;
   }
-  else {
-    return true;
-  }
+  return (
+    rect1.top + rect1.height > rect2.top &&
+    rect1.left + rect1.width > rect2.left
+  );
 }
-
 
 /**
  * Returns true, if point lies inside the circle, otherwise false.
@@ -179,10 +164,12 @@ export function doRectanglesOverlap(rect1, rect2) {
  *
  */
 export function isInsideCircle(circle, point) {
-  let distance = Math.hypot((point.x - circle.center.x), (circle.center.y - point.y));
+  let distance = Math.hypot(
+    point.x - circle.center.x,
+    circle.center.y - point.y
+  );
   return distance < circle.radius;
 }
-
 
 /**
  * Returns the first non repeated char in the specified strings otherwise returns null.
@@ -196,28 +183,16 @@ export function isInsideCircle(circle, point) {
  *   'entente' => null
  */
 export function findFirstSingleChar(str) {
-  let counter = 0;
-  let obj = {};
-  for(let i = 0; i < str.length; i++) {
-    for(let j = 0; j < str.length; j++){
-      if(str[i] === str[j]){
-        counter++;
-      }
-    }
-    obj[str[i]] = counter;
-    counter = 0;
-  }
-  for(let i = 0; i < str.length; i++){
-    if(obj[str[i]] === 1) {
+  for (let i = 0; i < str.length; i++) {
+    if (str.indexOf(str[i], i + 1) === -1 && str.indexOf(str[i]) === i) {
       return str[i];
-    } continue;
+    }
   }
   return null;
 }
 
-
 /**
- * Returns the string representation of math interval, specified by two points and 
+ * Returns the string representation of math interval, specified by two points and
  * include / exclude flags.
  * See the details: https://en.wikipedia.org/wiki/Interval_(mathematics)
  *
@@ -239,11 +214,15 @@ export function findFirstSingleChar(str) {
  *
  */
 export function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
-  let firstBracket = isStartIncluded ? '[' : '(';
-  let lastBracket = isEndIncluded ? ']' : ')';
-  return a > b ? `${firstBracket}${b}, ${a}${lastBracket}`: `${firstBracket}${a}, ${b}${lastBracket}`; 
+  let leftBracket = isStartIncluded ? '[' : '(';
+  let rigthBracket = isEndIncluded ? ']' : ')';
+  if (a > b) {
+    let tmp = a;
+    a = b;
+    b = tmp;
+  }
+  return `${leftBracket}${a}, ${b}${rigthBracket}`;
 }
-
 
 /**
  * Reverse the specified string (put all chars in reverse order)
@@ -258,9 +237,12 @@ export function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
  * 'noon' => 'noon'
  */
 export function reverseString(str) {
-  return str.split('').reverse().join('');
+  let newStr = '';
+  for (let i = str.length - 1; i >= 0; i--) {
+    newStr += str[i];
+  }
+  return newStr;
 }
-
 
 /**
  * Reverse the specified integer number (put all digits in reverse order)
@@ -275,9 +257,14 @@ export function reverseString(str) {
  *   34143 => 34143
  */
 export function reverseInteger(num) {
-  return Number(num.toString().split('').reverse().join(''));
+  let result = 0;
+  while (num > 0) {
+    result += num % 10;
+    result *= 10;
+    num = parseInt(num / 10, 10);
+  }
+  return result / 10;
 }
-
 
 /**
  * Validates the CCN (credit card number) and return true if CCN is valid
@@ -302,10 +289,10 @@ export function reverseInteger(num) {
 export function isCreditCardNumber(ccn) {
   let ccnString = ccn.toString();
   let sum = [];
-  for(let i = 0; i < ccnString.length; i++){
-    if((i + ccnString.length) % 2 === 0){
+  for (let i = 0; i < ccnString.length; i++) {
+    if ((i + ccnString.length) % 2 === 0) {
       let double = Number.parseInt(ccnString[i] * 2);
-      if(double > 9 ){
+      if (double > 9) {
         sum.push(double - 9);
       } else {
         sum.push(double);
@@ -316,9 +303,7 @@ export function isCreditCardNumber(ccn) {
   }
   sum = sum.reduce((a, c) => a + c);
   return sum % 10 === 0;
-  
 }
-
 
 /**
  * Returns the digital root of integer:
@@ -337,7 +322,6 @@ export function isCreditCardNumber(ccn) {
 export function getDigitalRoot(num) {
   return num % 9;
 }
-
 
 /**
  * Returns true if the specified string has the balanced brackets and false otherwise.
@@ -364,20 +348,21 @@ export function isBracketsBalanced(str) {
   let array = [];
   const openBracket = ['[', '{', '(', '<'];
   const closeBracket = [']', '}', ')', '>'];
-  for(let i = 0; i < str.length; i++) {
+  for (let i = 0; i < str.length; i++) {
     const currentBracket = str[i];
-    if(openBracket.indexOf(currentBracket) !== -1) {
+    if (openBracket.indexOf(currentBracket) !== -1) {
       array.push(currentBracket);
       continue;
     }
     const topBracket = array.pop();
-    if(openBracket.indexOf(topBracket) !== closeBracket.indexOf(currentBracket)){
+    if (
+      openBracket.indexOf(topBracket) !== closeBracket.indexOf(currentBracket)
+    ) {
       return false;
     }
   }
   return array.length === 0;
 }
-
 
 /**
  * Returns the human readable string of time period specified by the start and end time.
@@ -411,54 +396,32 @@ export function isBracketsBalanced(str) {
  *
  */
 export function timespanToHumanString(startDate, endDate) {
-  const diff = endDate - startDate;
-  const second = 1000;
-  const minute = 60 * second;
-  const hour = 60 * minute;
+  const min = 60;
+  const hour = 60 * min;
   const day = 24 * hour;
   const month = 30 * day;
-  const year = 365 * day;
-  function round(time) {
-    let t = Number.parseInt(time, 10);
-    let rest = time - t;
-    if(rest > 0.5) {
-      t++;
-    } 
-    return t;
+  const year = 12 * month;
+  const diff = (endDate - startDate) / 1000; //to seconds
+  if (diff <= 45) return 'a few seconds ago';
+  if (diff <= 90) return 'a minute ago';
+  if (diff <= 45 * min) {
+    return `${Math.round((diff - 0.001) / min)} minutes ago`;
   }
-  if (diff <= 45 * second){
-    return 'a few seconds ago';
-  }
-  if (diff <= 90 * second){
-    return 'a minute ago';
-  }
-  if (diff <= 45 * minute){
-    return `${round(diff / minute)} minutes ago`;
-  }
-  if (diff <= 90 * minute){
+  if (diff <= 90 * min) {
     return 'an hour ago';
   }
-  if (diff <= 22 * hour){
-    return `${round(diff / hour)} hours ago`;
+  if (diff <= 22 * hour) {
+    return `${Math.round((diff - 0.001) / hour)} hours ago`;
   }
-  if (diff <= 36 * hour){
-    return 'a day ago';
+  if (diff <= 36 * hour) return 'a day ago';
+  if (diff <= 25 * day) return `${Math.round((diff - 0.001) / day)} days ago`;
+  if (diff <= 45 * day) return 'a month ago';
+  if (diff <= 345 * day) {
+    return `${Math.round((diff - 0.001) / month)} months ago`;
   }
-  if (diff <= 25 * day){
-    return `${round(diff / day)} days ago`;
-  }
-  if (diff <= 45 * day){
-    return 'a month ago';
-  }
-  if (diff <= 345 * day){
-    return `${round(diff / month)} months ago`;
-  }
-  if (diff <= 545 * day){
-    return 'a year ago';
-  }
-  return `${round(diff / year)} years ago`;
+  if (diff <= 545 * day) return 'a year ago';
+  return `${Math.round((diff - 0.001) / year)} years ago`;
 }
-
 
 /**
  * Returns the string with n-ary (binary, ternary, etc, where n<=10) representation of
@@ -484,7 +447,6 @@ export function toNaryString(num, n) {
   return num.toString(n);
 }
 
-
 /**
  * Returns the commom directory path for specified array of full filenames.
  *
@@ -499,19 +461,18 @@ export function toNaryString(num, n) {
  */
 export function getCommonDirectoryPath(pathes) {
   const array = [];
-  for(let key of pathes) {
+  for (let key of pathes) {
     array.push(key.slice(0, key.lastIndexOf('/') + 1));
   }
-  if(array.every(el => el[0] === '/')){
-    if(array.every(el => el === array[0])){
+  if (array.every(el => el[0] === '/')) {
+    if (array.every(el => el === array[0])) {
       return array[0];
-    } 
+    }
     return '/';
   } else {
     return '';
   }
 }
-
 
 /**
  * Returns the product of two specified matrixes.
@@ -536,13 +497,13 @@ export function getMatrixProduct(m1, m2) {
   const rowsSecondMat = m2.length;
   const colsSecondMat = m2[0].length;
   const resultMat = [];
-  for(let i = 0; i < rowsFirstMat; i++) {
+  for (let i = 0; i < rowsFirstMat; i++) {
     resultMat[i] = [];
   }
-  for(let j = 0; j < colsSecondMat; j++){
-    for(let k = 0; k < rowsFirstMat; k++){
+  for (let j = 0; j < colsSecondMat; j++) {
+    for (let k = 0; k < rowsFirstMat; k++) {
       let tmp = 0;
-      for(let n = 0; n < rowsSecondMat; n++){
+      for (let n = 0; n < rowsSecondMat; n++) {
         tmp += m1[k][n] * m2[n][j];
       }
       resultMat[k][j] = tmp;
@@ -550,7 +511,6 @@ export function getMatrixProduct(m1, m2) {
   }
   return resultMat;
 }
-
 
 /**
  * Returns the evaluation of the specified tic-tac-toe position.
@@ -593,11 +553,10 @@ export function evaluateTicTacToePosition(position) {
     [position[0][0], position[1][1], position[2][2]],
     [position[0][2], position[1][1], position[2][0]]
   ];
-  for(let i = 0; i < allWinPos.length; i++) {
-    if(allWinPos[i].every(el => el === 'X')){
+  for (let i = 0; i < allWinPos.length; i++) {
+    if (allWinPos[i].every(el => el === 'X')) {
       return 'X';
-    }
-    else if(allWinPos[i].every(el => el === '0')){
+    } else if (allWinPos[i].every(el => el === '0')) {
       return '0';
     }
   }

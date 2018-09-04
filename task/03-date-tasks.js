@@ -1,4 +1,3 @@
-
 /** ******************************************************************************************
  *                                                                                          *
  * Plese read the following tutorial before implementing tasks:                             *
@@ -6,7 +5,6 @@
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date    *
  *                                                                                          *
  ******************************************************************************************* */
-
 
 /**
  * Parses a rfc2822 string date representation into date value
@@ -39,7 +37,6 @@ export function parseDataFromIso8601(value) {
   return new Date(value);
 }
 
-
 /**
  * Returns true if specified date is leap year and false otherwise
  * Please find algorithm here: https://en.wikipedia.org/wiki/Leap_year#Algorithm
@@ -56,9 +53,7 @@ export function parseDataFromIso8601(value) {
  */
 export function isLeapYear(date) {
   let year = date.getFullYear();
-  return year % 400 === 0
-         || year % 4 === 0
-         && year % 100 !== 0;
+  return year % 400 === 0 || (year % 4 === 0 && year % 100 !== 0);
 
   // if(year % 100 === 0 && year % 400 !== 0){
   //   return false;
@@ -69,7 +64,6 @@ export function isLeapYear(date) {
   //   return false;
   // }
 }
-
 
 /**
  * Returns the string represention of the timespan between two dates.
@@ -97,7 +91,6 @@ export function timeSpanToString(startDate, endDate) {
   return new Date(difference).toISOString().slice(11, 23);
 }
 
-
 /**
  * Returns the angle (in radians) between the hands of an analog clock for the
  * specified Greenwich time.
@@ -115,11 +108,7 @@ export function timeSpanToString(startDate, endDate) {
 export function angleBetweenClockHands(date) {
   const hours = date.getUTCHours() % 12;
   const minutes = date.getUTCMinutes();
-  const angleDegree = Math.abs(0.5 * (60 * hours + minutes) - 6 * minutes) * Math.PI / 180;
-  if (angleDegree <= Math.PI) {
-    return angleDegree;
-  } else {
-    return angleDegree - Math.PI;
-  }
+  const angleDegree =
+    (Math.abs(0.5 * (60 * hours + minutes) - 6 * minutes) * Math.PI) / 180;
+  return angleDegree <= Math.PI ? angleDegree : angleDegree - Math.PI;
 }
-

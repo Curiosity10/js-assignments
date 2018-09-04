@@ -1,11 +1,9 @@
-
 /** ******************************************************************************************
  *                                                                                          *
  * Please read the following tutorial before implementing tasks:                             *
  * https://developer.mozilla.org/en/docs/Web/JavaScript/Guide/Regular_Expressions           *
  *                                                                                          *
  ******************************************************************************************* */
-
 
 /**
  * Returns the regexp that matches a GUID string representation
@@ -33,7 +31,6 @@ export function getRegexForGuid() {
   return /^{[A-Fa-f0-9]{8}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{12}}$/;
 }
 
-
 /**
  * Returns the regexp that matches all the strings from first column
  * but of them from the second
@@ -55,7 +52,6 @@ export function getRegexForPitSpot() {
   return /^(s|r|pi)/;
 }
 
-
 /**
  * Returns the regexp that matches all IPv4 strings in
  * 'XX.XX.XX.XX' dotted format where XX is number 0 to 255
@@ -74,7 +70,6 @@ export function getRegexForIPv4() {
   return /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
 }
 
-
 /**
  * Returns the regexp that matches all SSN (Social Security Number) codes in
  * 'XXX-XX-XXXX' format where X is digit, where each group can't be all zeros
@@ -92,7 +87,6 @@ export function getRegexForIPv4() {
 export function getRegexForSSN() {
   return /^(?!000)[0-9]{3}-(?!00)[0-9]{2}-(?!0000)[0-9]{4}$/;
 }
-
 
 /**
  * Returns the password validator regex.
@@ -115,5 +109,7 @@ export function getRegexForSSN() {
  *   'Pa55'.match(validator) => false
  */
 export function getPasswordValidator(minLength) {
-  return new RegExp('^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[A-Za-z0-9]{' + minLength + ',}$');
+  return new RegExp(
+    '^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[A-Za-z0-9]{' + minLength + ',}$'
+  );
 }
